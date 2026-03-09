@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Men's Shoes — ADRSP</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (function() {
+      try {
+        const t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+  <style>
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(24px);
+      -webkit-backdrop-filter: saturate(180%) blur(24px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .top-nav-main {
+      height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+    }
+    .top-nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem; letter-spacing: -0.02em;
+      color: var(--text); text-decoration: none; flex-shrink: 0;
+    }
+    .top-nav-right {
+      display: flex; align-items: center; gap: 24px; list-style: none; margin: 0; padding: 0;
+    }
+    .top-nav-right a {
+      font-size: 0.8rem; color: var(--text); text-decoration: none;
+      display: flex; align-items: center; gap: 5px; transition: color 0.2s;
+    }
+    .top-nav-right a:hover { color: var(--text-2); }
+    .cat-strip {
+      height: 40px; display: flex; align-items: center;
+      padding: 0 48px; border-top: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-strip::-webkit-scrollbar { display: none; }
+    .cat-strip-link {
+      font-size: 0.75rem; color: var(--text-2); text-decoration: none;
+      white-space: nowrap; padding: 0 16px; height: 100%;
+      display: flex; align-items: center;
+      border-right: 1px solid var(--border);
+      transition: color 0.2s, background 0.2s;
+    }
+    .cat-strip-link:first-child { padding-left: 0; }
+    .cat-strip-link:hover { color: var(--text); background: var(--bg-2); }
+    body { padding-top: 92px; }
+    @media (max-width: 768px) {
+      .top-nav-main { padding: 0 20px; }
+      .cat-strip { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <div class="top-nav-main">
+      <a class="top-nav-logo" href="index.html">ADRSP</a>
+      <ul class="top-nav-right">
+        <li id="nav-user-slot"><a href="login.html">Sign in</a></li>
+        <li><a href="cart.html">Bag <span class="cart-badge" id="cart-count"></span></a></li>
+        <li><button class="theme-toggle" id="theme-toggle" title="Toggle theme">☾</button></li>
+      </ul>
+    </div>
+    <div class="cat-strip">
+      <a class="cat-strip-link" href="smartphones.html">📱 Smartphones</a>
+      <a class="cat-strip-link" href="laptops.html">💻 Laptops</a>
+      <a class="cat-strip-link" href="tablets.html">📟 Tablets</a>
+      <a class="cat-strip-link" href="womens-clothing.html">👗 Women's</a>
+      <a class="cat-strip-link" href="mens-clothing.html">👔 Men's</a>
+      <a class="cat-strip-link" href="tops.html">👕 Tops</a>
+      <a class="cat-strip-link" href="womens-shoes.html">👠 Women's Shoes</a>
+      <a class="cat-strip-link" href="mens-shoes.html">👟 Men's Shoes</a>
+      <a class="cat-strip-link" href="bags.html">👜 Bags</a>
+      <a class="cat-strip-link" href="beauty.html">✨ Beauty</a>
+      <a class="cat-strip-link" href="fragrances.html">🌸 Fragrances</a>
+      <a class="cat-strip-link" href="sunglasses.html">🕶 Sunglasses</a>
+      <a class="cat-strip-link" href="furniture.html">🛋 Furniture</a>
+      <a class="cat-strip-link" href="home-decoration.html">🏠 Home Decor</a>
+      <a class="cat-strip-link" href="groceries.html">🛒 Groceries</a>
+      <a class="cat-strip-link" href="sports-accessories.html">⚽ Sports</a>
+      <a class="cat-strip-link" href="vehicle.html">🚗 Vehicle</a>
+      <a class="cat-strip-link" href="motorcycle.html">🏍 Motorcycles</a>
+    </div>
+  </div>
+
+  <div class="back-bar">
+    <a class="back-link" href="index.html">← All categories</a>
+  </div>
+
+  <section class="products-section">
+    <p class="section-label">Footwear</p>
+    <h2 class="section-heading">Men's Shoes</h2>
+
+    <!-- Sort & filter bar -->
+    <div class="cat-toolbar" id="cat-toolbar" style="display:none">
+      <span class="cat-count" id="cat-count"></span>
+      <div class="cat-sort">
+        <label class="sort-label">Sort by</label>
+        <select class="sort-select" id="sort-select">
+          <option value="default">Featured</option>
+          <option value="price-asc">Price: Low to high</option>
+          <option value="price-desc">Price: High to low</option>
+          <option value="rating">Top rated</option>
+          <option value="discount">Biggest discount</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="loading-grid" id="loading-grid">
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>
+      <div class="skeleton"><div class="skeleton-img"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>
+    </div>
+
+    <div class="products-grid" id="products-grid" style="display:none"></div>
+
+    <div class="cat-error" id="cat-error" style="display:none">
+      <p>Could not load products. <a href="index.html" style="color:var(--text)">Go back</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Advanced Digital Retail Shopping Platform. All rights reserved.</p>
+    <p>Advanced Digital Retail Shopping Platform</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Category page logic
+    const CATEGORY_SLUG = 'mens-shoes';
+    if (typeof initCategoryPage === 'function') initCategoryPage(CATEGORY_SLUG);
+  </script>
+  
+  <script>
+    (function(){
+      var btn = document.getElementById('theme-toggle');
+      function getT(){ try{ return localStorage.getItem('theme')||'light'; }catch(e){ return 'light'; } }
+      function setT(t){ document.documentElement.setAttribute('data-theme',t); try{ localStorage.setItem('theme',t); }catch(e){} if(btn) btn.textContent = t==='dark'?'☀':'☾'; }
+      if(btn){ btn.textContent = getT()==='dark'?'☀':'☾'; btn.addEventListener('click',function(){ setT(getT()==='dark'?'light':'dark'); }); }
+      try{
+        var u = JSON.parse(localStorage.getItem('lsms_user'));
+        if(u){
+          var s = document.getElementById('nav-user-slot');
+          if(s) s.innerHTML = '<a href="login.html" style="gap:6px"><span style="width:24px;height:24px;background:var(--btn-bg);color:var(--btn-text);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.65rem">'+(u.avatar||u.name[0])+'</span>'+u.name.split(' ')[0]+'</a>';
+        }
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>

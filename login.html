@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — ADRSP</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .auth-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+    }
+    .auth-left {
+      flex: 1;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-left::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      top: -100px; right: -100px;
+    }
+    .auth-left::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.05);
+      bottom: -80px; left: -80px;
+    }
+    .auth-left-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--btn-text);
+      text-decoration: none;
+    }
+    .auth-left-body { position: relative; z-index: 1; }
+    .auth-left-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 20px;
+    }
+    .auth-left-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      opacity: 0.95;
+    }
+    .auth-left-sub {
+      font-size: 0.88rem;
+      opacity: 0.5;
+      line-height: 1.7;
+      max-width: 320px;
+    }
+    .auth-left-foot {
+      font-size: 0.72rem;
+      opacity: 0.3;
+    }
+    .auth-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 64px;
+      background: var(--bg);
+    }
+    .auth-form-box {
+      width: 100%;
+      max-width: 380px;
+    }
+    .auth-form-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .auth-form-sub {
+      font-size: 0.82rem;
+      color: var(--text-2);
+      margin-bottom: 40px;
+    }
+    .auth-form-sub a {
+      color: var(--text);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .auth-field {
+      margin-bottom: 20px;
+    }
+    .auth-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 8px;
+    }
+    .auth-input {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 14px 16px;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s, background 0.3s;
+    }
+    .auth-input:focus {
+      border-color: var(--text);
+      background: var(--bg);
+    }
+    .auth-input::placeholder { color: var(--text-3); }
+    .auth-forgot {
+      display: block;
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--text-2);
+      text-decoration: none;
+      margin-top: -10px;
+      margin-bottom: 28px;
+      transition: color 0.2s;
+    }
+    .auth-forgot:hover { color: var(--text); }
+    .auth-btn {
+      width: 100%;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 400;
+      padding: 15px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .auth-btn:hover { background: var(--btn-hover); transform: translateY(-1px); }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px 0;
+      color: var(--text-3);
+      font-size: 0.72rem;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .auth-google-btn {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      padding: 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s;
+    }
+    .auth-google-btn:hover { background: var(--bg-3); }
+    .auth-error {
+      background: #fff0f0;
+      border: 1px solid #ffd0d0;
+      color: #c0392b;
+      font-size: 0.8rem;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    [data-theme="dark"] .auth-error {
+      background: #2d1a1a;
+      border-color: #5c2626;
+      color: #ff6b6b;
+    }
+    @media (max-width: 768px) {
+      .auth-left { display: none; }
+      .auth-right { padding: 48px 28px; }
+    }
+  </style>
+  <script>
+    (function() {
+      try {
+        const t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-left">
+      <a class="auth-left-logo" href="index.html">ADRSP</a>
+      <div class="auth-left-body">
+        <p class="auth-left-label">Welcome back</p>
+        <h2 class="auth-left-heading">Advanced Digital<br><em>Retail.</em></h2>
+        <p class="auth-left-sub">Sign in to access your bag, track orders, and get personalised picks — all in one place.</p>
+      </div>
+      <p class="auth-left-foot">© 2025 Advanced Digital Retail Shopping Platform</p>
+    </div>
+
+    <div class="auth-right">
+      <div class="auth-form-box">
+        <h1 class="auth-form-title">Sign in</h1>
+        <p class="auth-form-sub">New here? <a href="signup.html">Create an account</a></p>
+
+        <div class="auth-error" id="auth-error"></div>
+
+        <div class="auth-field">
+          <label class="auth-label">Email</label>
+          <input class="auth-input" id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">Password</label>
+          <input class="auth-input" id="password" type="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <a class="auth-forgot" href="#">Forgot password?</a>
+
+        <button class="auth-btn" id="login-btn">Sign in</button>
+
+        <div class="auth-divider">or</div>
+
+        <button class="auth-google-btn" id="google-btn">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          Continue with Google
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme
+    function getTheme() { try { return localStorage.getItem('theme') || 'light'; } catch(e) { return 'light'; } }
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      try { localStorage.setItem('theme', t); } catch(e) {}
+    }
+    setTheme(getTheme());
+
+    // Simple localStorage auth
+    function getUsers() { try { return JSON.parse(localStorage.getItem('lsms_users')) || []; } catch(e) { return []; } }
+
+    function showError(msg) {
+      const e = document.getElementById('auth-error');
+      e.textContent = msg;
+      e.style.display = 'block';
+    }
+
+    document.getElementById('login-btn').addEventListener('click', () => {
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) { showError('Please fill in all fields.'); return; }
+
+      const users = getUsers();
+      const user  = users.find(u => u.email === email && u.password === password);
+
+      if (!user) { showError('Incorrect email or password.'); return; }
+
+      try { localStorage.setItem('lsms_user', JSON.stringify(user)); } catch(e) {}
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('google-btn').addEventListener('click', () => {
+      // Simulate Google login
+      const mockUser = { name: 'Google User', email: 'user@gmail.com', avatar: 'G' };
+      try { localStorage.setItem('lsms_user', JSON.stringify(mockUser)); } catch(e) {}
+      window.location.href = 'index.html';
+    });
+
+    // Enter key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('login-btn').click();
+    });
+  </script>
+  
+</body>
+</html>
